@@ -26,6 +26,12 @@ let dom_html = `<html>
                     <li> <a>Neue Klaviere</a> </li>
                 </ul>
             </nav>
+
+            <button>Mehr erfahren</button>
+
+            <section class="details hidden">
+                Weitere Einzelheiten ...
+            </section>
         </main>
         <footer>
             © Die Online-Klavierschule
@@ -169,6 +175,44 @@ class DOMFunktionen4 {
             error = "Der Footer beinhaltet keinen Absatz.";
         } else if (pElement.textContent === "") {
             error = "Der Absatz beinhaltet keinen Text.";
+        }
+
+        return error;
+    }
+}
+
+
+/**
+ * Event Handler mit DOM-Manipulation
+ */
+class DOMFunktionen5 {
+    get description() {
+        return html`
+            Registriere einen Event Handler, für das <code>click</code>-Event des Buttons.
+            Bei einem Klick auf den Button soll der <code>&lt;section&gt;</code> mit der
+            Klasse <code>details</code> die Klasse <code>hidden</code> entfernt bzw. wieder
+            hinzugefügt werden.
+        `;
+    }
+
+    get html() {
+        return dom_html;
+    }
+
+    verify(iframe) {
+        let error = "";
+        let buttonElement = iframe.contentWindow.document.querySelector("button");
+        let sectionElement = iframe.contentWindow.document.querySelector("section.details");
+        let isHiddenBefore = sectionElement.classList.contains("hidden");
+
+        buttonElement.click();
+        let isHiddenAfter1 = sectionElement.classList.contains("hidden");
+
+        buttonElement.click();
+        let isHiddenAfter2 = sectionElement.classList.contains("hidden");
+
+        if (isHiddenBefore === isHiddenAfter1 || isHiddenAfter1 === isHiddenAfter2) {
+            error = "Die CSS-Klasse hidden wird bei einem Klick auf den Button nicht verändert.";
         }
 
         return error;
